@@ -6,3 +6,5 @@
 - 미리보기: `.claude/launch.json` 의 `site` (tools/serve.ps1, 포트 5173)
 - 사용자는 한국어로 소통하며, 변경 사항을 오른쪽 미리보기 화면으로 보여주는 것을 선호합니다.
 - 관리자 비밀번호는 파일에 평문으로 적지 않습니다 (config.js 에는 salt·해시값만).
+- js·css 를 고쳐 배포할 때는 `index.html` 의 `?v=날짜` 값을 바꿔 브라우저가 새 파일을 받게 합니다.
+- 공개 사이트: GitHub Pages (https://a01041838871-cpu.github.io/ai-webb-koreauniv/), 저장 방식: 구글 시트(gas).
