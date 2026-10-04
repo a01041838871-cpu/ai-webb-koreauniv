@@ -30,8 +30,8 @@ window.SITE_CONFIG = {
     iterations: 1000
   },
   backend: {
-    type: "local",
-    url: ""          // gas 방식일 때 Apps Script 웹앱 주소 (https://script.google.com/macros/s/.../exec)
+    type: "gas",
+    url: "https://script.google.com/macros/s/AKfycbw-tZF-AiDXVFQ96uZToK4ztpVui4yHe9TEHKMkoWJ5pw4PZodWzBzEQfDcnk0InD0q/exec"   // Apps Script 웹앱 주소 (구글 시트 「일본회화와 문화학 저장소」)
   },
 
   /* ───────── 공지사항 (관리자 화면 → 공지 에서 쉽게 올릴 수 있어요) ───────── */
