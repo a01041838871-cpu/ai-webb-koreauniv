@@ -25,8 +25,8 @@ window.SITE_CONFIG = {
    *     "gas"   : 구글 스프레드시트에 저장 → 학생 수강신청·과제 제출이 관리자에게 모입니다
    *               설정 방법은 「사용안내.md」의 '구글 시트 연결' 을 보세요. */
   admin: {
-    salt: "7f326e23c857d284883cf79e341832a3",
-    passwordHash: "1a1f930627d8dafd2c18caac864a699f6f4a3e35908554cdbf6e8fe35707af00",
+    salt: "7faebbec48acf124e70b0995eea83103",
+    passwordHash: "7c35b6a722a47c77ea4c17832ade3ebd047b3aa160bca6939f674c462c19a037",
     iterations: 1000
   },
   backend: {
