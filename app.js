@@ -657,9 +657,9 @@
               const paper = (r) => `<li><time>${esc(r.when)}</time><span><strong>${esc(r.title)}</strong> <small>${esc(r.journal)}</small>${r.note ? ` <small class="pub-note">${esc(r.note)}</small>` : ""}</span></li>`;
               return `<div class="prof-acc-group">
                 ${profAcc(T.awards || "🏆 수상", p.awards, (a) => `<li><time>${esc(a.when)}</time><span>${esc(a.text)}</span></li>`)}
-                ${profAcc(T.publications || "📚 저서", p.publications, pub)}
-                ${profAcc(T.papers || "📝 논문", p.papers, paper)}
+                ${profAcc(T.papers || "📝 학술논문", p.papers, paper)}
                 ${profAcc(T.articles || "📄 일반논문", p.articles, paper)}
+                ${profAcc(T.publications || "📚 저서", p.publications, pub)}
               </div>`;
             })()}
           </div>

@@ -313,7 +313,7 @@
     petals: "꽃잎 흩날림", petalCount: "꽃잎 개수", intro: "안내 문구", consent: "개인정보 동의 문구", done: "접수 완료 문구",
     show: "보이기", button: "버튼 글자", applyText: "수강신청 카드 설명", myroomText: "내 강의실 카드 설명", showScores: "학생에게 과제 점수 보여주기",
     images: "참고 그림", file: "위키미디어 파일 이름 (File: 뒤 이름)", image: "그림 주소 (직접 입력)", wiki: "위키백과 문서 제목 (일본어)",
-    awards: "수상", publications: "저서", papers: "논문", articles: "일반논문", listTitles: "목록 제목", when: "시기", journal: "학술지·수록처", note: "비고",
+    awards: "수상", publications: "저서", papers: "학술논문", articles: "일반논문", listTitles: "목록 제목", when: "시기", journal: "학술지·수록처", note: "비고",
     badgeImages: "배지 양옆 그림", left: "왼쪽", right: "오른쪽", mirrorRight: "오른쪽 좌우반전", text: "내용", online_: "온라인", events: "기타 일정 (📌 특강·답사 등)"
   };
   const LONG_KEYS = ["overview", "goal", "bio", "body", "details", "desc", "a", "description", "summary", "consent", "intro"];
