@@ -1,0 +1,11 @@
+# 저장소에 올리지 않는 것
+작업화면/
+작업화면_전체.png
+내보내기/
+*.zip
+.claude/
+
+# 운영체제·편집기 임시 파일
+Thumbs.db
+desktop.ini
+.DS_Store

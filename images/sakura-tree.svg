@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 180" width="200" height="180">
+  <defs>
+    <linearGradient id="trunk" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6e4256"/>
+      <stop offset=".55" stop-color="#9a6478"/>
+      <stop offset="1" stop-color="#7a4a5f"/>
+    </linearGradient>
+    <radialGradient id="blob" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#fff0f5"/>
+      <stop offset=".55" stop-color="#ffc4d8"/>
+      <stop offset="1" stop-color="#f49ab9"/>
+    </radialGradient>
+    <radialGradient id="blob2" cx=".45" cy=".35" r=".7">
+      <stop offset="0" stop-color="#fbf0ff"/>
+      <stop offset=".6" stop-color="#e9cdf5"/>
+      <stop offset="1" stop-color="#d3a9ec"/>
+    </radialGradient>
+    <!-- 벚꽃 한 송이 (꽃잎 끝이 살짝 갈라진 5장) -->
+    <path id="petal" d="M0 0 C-5 -3 -6.6 -10 -3.3 -13.2 L0 -11.2 L3.3 -13.2 C6.6 -10 5 -3 0 0Z"/>
+    <g id="flower">
+      <use xlink:href="#petal" href="#petal"/>
+      <use xlink:href="#petal" href="#petal" transform="rotate(72)"/>
+      <use xlink:href="#petal" href="#petal" transform="rotate(144)"/>
+      <use xlink:href="#petal" href="#petal" transform="rotate(216)"/>
+      <use xlink:href="#petal" href="#petal" transform="rotate(288)"/>
+      <circle r="2.6" fill="#ffe9a8"/>
+      <g fill="#e0608c">
+        <circle cx="0" cy="-4.2" r=".9"/><circle cx="4" cy="-1.3" r=".9"/><circle cx="2.5" cy="3.4" r=".9"/>
+        <circle cx="-2.5" cy="3.4" r=".9"/><circle cx="-4" cy="-1.3" r=".9"/>
+      </g>
+    </g>
+    <ellipse id="fall" rx="3.2" ry="1.8"/>
+  </defs>
+
+  <!-- 바닥 -->
+  <ellipse cx="100" cy="172" rx="82" ry="7" fill="#f9cfe0" opacity=".7"/>
+  <ellipse cx="100" cy="172" rx="50" ry="4" fill="#f4b3cc" opacity=".6"/>
+
+  <!-- 줄기와 가지 -->
+  <path fill="url(#trunk)" d="M90 174 C93 150 88 128 95 108 C98 98 90 88 80 80 L84 76 C94 83 100 91 102 99 C106 88 115 80 127 73 L130 77 C119 85 111 95 108 108 C104 126 108 150 112 174 Z"/>
+  <g fill="none" stroke="#7a4a5f" stroke-linecap="round">
+    <path d="M82 78 C70 72 58 70 44 62" stroke-width="3.2"/>
+    <path d="M128 75 C140 70 150 66 160 56" stroke-width="3.2"/>
+    <path d="M100 100 C100 82 98 66 100 46" stroke-width="3"/>
+    <path d="M62 70 C58 62 58 54 62 44" stroke-width="2"/>
+    <path d="M145 68 C148 60 146 52 140 44" stroke-width="2"/>
+    <path d="M99 70 C88 62 80 56 74 46" stroke-width="2"/>
+    <path d="M100 64 C110 58 118 52 124 42" stroke-width="2"/>
+  </g>
+
+  <!-- 꽃 덩어리(수관) -->
+  <g opacity=".96">
+    <circle cx="48" cy="60" r="21" fill="url(#blob)"/>
+    <circle cx="70" cy="44" r="24" fill="url(#blob)"/>
+    <circle cx="100" cy="34" r="27" fill="url(#blob)"/>
+    <circle cx="131" cy="42" r="24" fill="url(#blob)"/>
+    <circle cx="155" cy="58" r="21" fill="url(#blob)"/>
+    <circle cx="86" cy="62" r="20" fill="url(#blob2)"/>
+    <circle cx="117" cy="62" r="20" fill="url(#blob2)"/>
+    <circle cx="100" cy="54" r="18" fill="url(#blob)"/>
+    <circle cx="36" cy="72" r="12" fill="url(#blob)"/>
+    <circle cx="166" cy="72" r="12" fill="url(#blob)"/>
+  </g>
+
+  <!-- 벚꽃 송이들 -->
+  <g fill="#ffe3ee">
+    <use href="#flower" xlink:href="#flower" transform="translate(52 52) scale(.9)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(98 22) scale(1)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(140 34) scale(.85) rotate(20)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(112 58) scale(.8) rotate(10)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(30 70) scale(.7)"/>
+  </g>
+  <g fill="#f9b2cb">
+    <use href="#flower" xlink:href="#flower" transform="translate(74 36) scale(1.05) rotate(15)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(124 24) scale(.9) rotate(-10)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(160 54) scale(.95) rotate(30)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(84 66) scale(.85) rotate(-20)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(42 64) scale(.75) rotate(40)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(170 74) scale(.65)"/>
+  </g>
+  <g fill="#f28fb3">
+    <use href="#flower" xlink:href="#flower" transform="translate(62 30) scale(.7) rotate(-25)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(110 40) scale(.75) rotate(35)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(146 64) scale(.7) rotate(5)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(96 48) scale(.6)"/>
+  </g>
+  <g fill="#e4c6f5">
+    <use href="#flower" xlink:href="#flower" transform="translate(86 14) scale(.55) rotate(12)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(126 70) scale(.6) rotate(-30)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(58 78) scale(.55)"/>
+  </g>
+
+  <!-- 흩날리는 꽃잎 -->
+  <g fill="#f7a6c3" opacity=".85">
+    <use href="#fall" xlink:href="#fall" transform="translate(24 98) rotate(30)"/>
+    <use href="#fall" xlink:href="#fall" transform="translate(176 104) rotate(-20)"/>
+    <use href="#fall" xlink:href="#fall" transform="translate(150 124) rotate(60)"/>
+    <use href="#fall" xlink:href="#fall" transform="translate(44 132) rotate(-45)"/>
+    <use href="#fall" xlink:href="#fall" transform="translate(132 150) rotate(15)"/>
+    <use href="#fall" xlink:href="#fall" transform="translate(68 152) rotate(70)"/>
+  </g>
+  <g fill="#d9b8f0" opacity=".8">
+    <use href="#fall" xlink:href="#fall" transform="translate(186 88) scale(.8) rotate(40)"/>
+    <use href="#fall" xlink:href="#fall" transform="translate(14 118) scale(.8) rotate(-10)"/>
+  </g>
+
+  <!-- 바닥의 작은 꽃 -->
+  <g stroke="#8fbf9a" stroke-width="1.4" stroke-linecap="round" fill="none">
+    <path d="M38 172 C38 166 37 162 38 157"/>
+    <path d="M50 172 C50 167 52 164 51 160"/>
+    <path d="M152 172 C152 166 151 163 153 158"/>
+    <path d="M164 172 C164 168 165 165 164 161"/>
+  </g>
+  <g fill="#f9b2cb">
+    <use href="#flower" xlink:href="#flower" transform="translate(38 155) scale(.42)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(153 156) scale(.45) rotate(20)"/>
+  </g>
+  <g fill="#e4c6f5">
+    <use href="#flower" xlink:href="#flower" transform="translate(51 158) scale(.36) rotate(30)"/>
+    <use href="#flower" xlink:href="#flower" transform="translate(164 159) scale(.36)"/>
+  </g>
+</svg>
