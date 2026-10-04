@@ -271,21 +271,21 @@ window.SITE_CONFIG = {
         details: "상대-근현대까지 시대와 연관하여 회화사의 큰 흐름을 살펴본다.",
         images: [
           { title: "다카마쓰총 고분벽화 (아스카)", file: "Takamat1.jpg", wiki: "高松塚古墳" },
-          { title: "겐지모노가타리에마키 (헤이안)", file: "Genji emaki azumaya.jpg", wiki: "源氏物語絵巻" },
-          { title: "셋슈 「추동산수도」 (무로마치)", file: "Autumn and Winter Landscape.jpg", wiki: "秋冬山水図" },
-          { title: "호쿠사이 「가나가와 해변의 높은 파도」 (에도)", file: "The Great Wave off Kanagawa.jpg", wiki: "神奈川沖浪裏" }
+          { title: "겐지모노가타리에마키 (헤이안)", file: "Genji emaki azumaya.jpg", wiki: "源氏物語絵巻" }
         ] },
       { week: 3, short: "시대적 흐름 (2)", topic: "일본회화의 시대적 흐름 (2)", material: "PPT, 프린트", activity: "강의 및 토론",
         details: "상대-근현대까지 시대와 연관하여 회화사의 큰 흐름을 살펴본다.",
         images: [
-          { title: "다마무시노즈시(玉虫厨子) · 호류지", file: "Tamamushi Shrine ColorPhoto.jpg", wiki: "玉虫厨子" },
-          { title: "덴주코쿠 수장(天寿国繡帳) · 주구지", file: "Tenjyukoku embroidery.jpg", wiki: "天寿国繡帳" }
+          { title: "셋슈 「추동산수도」 (무로마치)", file: "Autumn and Winter Landscape.jpg", wiki: "秋冬山水図" },
+          { title: "호쿠사이 「가나가와 해변의 높은 파도」 (에도)", file: "The Great Wave off Kanagawa.jpg", wiki: "神奈川沖浪裏" }
         ] },
       { week: 4, short: "아스카", topic: "일본회화 작품감상 및 시대배경 2) 상대(上代) — 아스카 시대", era: "jodai", material: "PPT, 프린트", activity: "강의 및 토론",
         details: "상대(上代) 아스카 시대, 일본 불교회화와 호류지 금당벽화, 다카마쓰총 고분벽화 등을 살펴본다.",
         images: [
           { title: "호류지 금당벽화 (비천)", file: "Apsara Horyuji1.JPG", wiki: "法隆寺金堂壁画" },
-          { title: "다카마쓰총 고분벽화 (서벽 여인군상)", file: "Takamat1.jpg", wiki: "高松塚古墳" }
+          { title: "다카마쓰총 고분벽화 (서벽 여인군상)", file: "Takamat1.jpg", wiki: "高松塚古墳" },
+          { title: "다마무시노즈시(玉虫厨子) · 호류지", file: "Tamamushi Shrine ColorPhoto.jpg", wiki: "玉虫厨子" },
+          { title: "덴주코쿠 수장(天寿国繡帳) · 주구지", file: "Tenjyukoku embroidery.jpg", wiki: "天寿国繡帳" }
         ],
         // 9.24(목) 추석 연휴 → 9.23(수) 저녁 온라인 보강수업
         online: { title: "추석 연휴(9.24) 보강 — 온라인 보강수업",
