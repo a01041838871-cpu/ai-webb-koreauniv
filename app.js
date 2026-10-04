@@ -794,7 +794,7 @@
   const field = (name, label, attrs = "", type = "text") =>
     `<label class="f"><span>${label}</span><input name="${name}" type="${type}" ${attrs}></label>`;
   const SID_ATTR = 'required inputmode="numeric" pattern="[0-9]{6,12}" title="숫자 6~12자리"';
-  // 양식 보내기: 성공하면 완료 문구로 바꾸고, 버튼을 누르면 onDone (없으면 팝업 닫기)
+  // 양식 보내기: 성공하면 완료 문구로 바꾸고, 버튼을 누르면 onDone (없으면 팝업 닫기). 성공하면 true
   async function submitForm(form, key, extra, doneMsg, onDone) {
     const btn = $("button[type=submit]", form);
     const data = Object.fromEntries(new FormData(form).entries());
@@ -803,13 +803,60 @@
       await window.SiteStore.submit(key, Object.assign(data, extra));
       const wrap = document.createElement("div");
       wrap.className = "form-done";
-      wrap.innerHTML = `🌸<p>${esc(doneMsg)}</p><button type="button" class="btn primary">${onDone ? "확인" : "닫기"}</button>`;
+      wrap.innerHTML = `🌸<p>${nl2br(doneMsg)}</p><button type="button" class="btn primary">${onDone ? "확인" : "닫기"}</button>`;
       form.replaceWith(wrap);
       $("button", wrap).addEventListener("click", onDone || closeModal);
+      return true;
     } catch (e) {
       btn.disabled = false; btn.textContent = "다시 보내기";
       $(".form-err", form).textContent = "보내지 못했어요: " + e.message;
+      return false;
     }
+  }
+
+  /* 축하 폭죽 — 화면 양쪽 아래에서 꽃종이가 터져 올랐다가 떨어집니다 (움직임 줄이기 설정이면 생략) */
+  function confetti() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = C.theme || {};
+    const colors = [t.pinkDeep || "#d9638f", t.pink || "#f6a5c0", t.purple || "#7b58b8", t.lavender || "#c9b6ea", "#ffd166", "#ffffff"];
+    const canvas = document.createElement("canvas");
+    canvas.className = "confetti";
+    canvas.setAttribute("aria-hidden", "true");
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const W = innerWidth, H = innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.scale(dpr, dpr);
+    const parts = [];
+    const burst = (x, y, angle, n) => {
+      for (let i = 0; i < n; i++) {
+        const a = angle + (Math.random() - 0.5) * 1.1, sp = 9 + Math.random() * 11;
+        parts.push({
+          x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+          w: 6 + Math.random() * 6, h: 4 + Math.random() * 8, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.3,
+          c: colors[(Math.random() * colors.length) | 0], petal: Math.random() < 0.3, life: 0
+        });
+      }
+    };
+    burst(0, H, -Math.PI / 3, 90);          // 왼쪽 아래에서 오른쪽 위로
+    burst(W, H, -Math.PI * 2 / 3, 90);      // 오른쪽 아래에서 왼쪽 위로
+    setTimeout(() => burst(W / 2, H * 0.45, -Math.PI / 2, 70), 250);   // 가운데에서 한 번 더
+    const start = performance.now();
+    setTimeout(() => canvas.remove(), 4500);   // 화면이 멈춰 있어도(백그라운드 탭 등) 꼭 치우기
+    (function frame(now) {
+      ctx.clearRect(0, 0, W, H);
+      parts.forEach((p) => {
+        p.life++;
+        p.vx *= 0.985; p.vy = p.vy * 0.985 + 0.32; p.x += p.vx + Math.sin(p.life / 9) * 0.6; p.y += p.vy; p.r += p.vr;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c;
+        if (p.petal) { ctx.beginPath(); ctx.ellipse(0, 0, p.w * 0.6, p.w * 0.35, 0, 0, 6.28); ctx.fill(); }
+        else ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+      if (now - start < 3800 && parts.some((p) => p.y < H + 40)) requestAnimationFrame(frame);
+      else canvas.remove();
+    })(start);
   }
 
   /* --- 맨 위 알림 띠: 수강신청 안내 --- */
@@ -888,9 +935,10 @@
         <p class="form-err" role="alert"></p>
         <button type="submit" class="btn primary">제출하기</button>
       </form>`);
-    $("#submitForm").addEventListener("submit", (e) => {
+    $("#submitForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      submitForm(e.target, "submissions", { week: w.week, assignment: w.assignment.title }, "과제가 제출되었습니다. 수고했어요 🌸");
+      // 제출이 저장되었을 때만 축하 문구와 폭죽
+      if (await submitForm(e.target, "submissions", { week: w.week, assignment: w.assignment.title }, "수고하셨습니다,\n과제가 정상 제출되었습니다. 🎉")) confetti();
     });
   }
 
