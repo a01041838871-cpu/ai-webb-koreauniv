@@ -34,6 +34,27 @@
     clearTimeout(t._h);
     t._h = setTimeout(() => t.classList.remove("show"), 2600);
   }
+  // 확인 창 — 브라우저 기본 confirm() 은 앱 안 브라우저 등에서 뜨지 않을 수 있어 화면 안에 직접 띄움
+  function ask(msg, okText = "확인") {
+    return new Promise((resolve) => {
+      const wrap = document.createElement("div");
+      wrap.className = "adm-confirm";
+      wrap.innerHTML = `<div class="adm-confirm-card" role="alertdialog" aria-modal="true"><p></p>
+        <div class="adm-row-end"><button type="button" class="adm-btn ghost" data-a="0">취소</button><button type="button" class="adm-btn primary" data-a="1"></button></div></div>`;
+      $("p", wrap).textContent = msg;
+      $("[data-a='1']", wrap).textContent = okText;
+      const key = (e) => { if (e.key === "Escape") { e.stopPropagation(); done(false); } };
+      const done = (v) => { wrap.remove(); document.removeEventListener("keydown", key, true); resolve(v); };
+      wrap.addEventListener("click", (e) => {
+        if (e.target === wrap) return done(false);
+        const b = e.target.closest("[data-a]");
+        if (b) done(b.dataset.a === "1");
+      });
+      document.addEventListener("keydown", key, true);
+      document.body.appendChild(wrap);
+      $("[data-a='1']", wrap).focus();
+    });
+  }
   function download(name, text, type) {
     const blob = new Blob([text], { type });
     const url = URL.createObjectURL(blob);
@@ -464,9 +485,9 @@
         [a[i], a[j]] = [a[j], a[i]];
         drawEditor();
       }));
-      $("[data-del]", row).addEventListener("click", (e) => {
+      $("[data-del]", row).addEventListener("click", async (e) => {
         e.preventDefault();
-        if (!confirm(`'${itemTitle(item, i)}' 항목을 삭제할까요?`)) return;
+        if (!(await ask(`'${itemTitle(item, i)}' 항목을 삭제할까요?`, "삭제"))) return;
         getAt(draft, path.slice(1)).splice(i, 1);
         drawEditor();
       });
@@ -539,9 +560,9 @@
     });
     if (ed) $("#ntCancel").addEventListener("click", () => notice(main));
     $$("[data-edit]", main).forEach((b) => b.addEventListener("click", () => notice(main, b.dataset.edit)));
-    $$("[data-del]", main).forEach((b) => b.addEventListener("click", () => {
+    $$("[data-del]", main).forEach((b) => b.addEventListener("click", async () => {
       const it = n.items.find((x) => x.id === b.dataset.del);
-      if (it && confirm(`'${it.title}' 공지를 삭제할까요?`)) saveNotices(n.items.filter((x) => x.id !== it.id), "공지를 삭제했어요");
+      if (it && (await ask(`'${it.title}' 공지를 삭제할까요?`, "삭제"))) saveNotices(n.items.filter((x) => x.id !== it.id), "공지를 삭제했어요");
     }));
   }
 
@@ -720,7 +741,7 @@
     $$("input[name=kind], select[name=week], input[name=online]", form).forEach((el) => el.addEventListener("change", sync));
     sync();
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const v = Object.fromEntries(new FormData(form).entries());
       v.online = form.online.checked && v.kind === "class";
@@ -733,7 +754,7 @@
       // 새로 추가하는 수업이 이미 있는 정규 수업과 겹치면 확인
       if (!ed && (v.kind === "class" || v.kind === "exam") && !v.online) {
         const s = A.allSessions.find((x) => x.key === v.date && !x.extra && String(x.w.week) === String(v.week));
-        if (s && !confirm(`${s.w.week}주차 ${s.day}요일 수업(${s.short})이 이미 있어요. 이 내용으로 바꿀까요?`)) return;
+        if (s && !(await ask(`${s.w.week}주차 ${s.day}요일 수업(${s.short})이 이미 있어요. 이 내용으로 바꿀까요?`, "바꾸기"))) return;
       }
       const cfg = clone(window.SITE_CONFIG);
       // 정규 수업을 '휴강'으로 바꾸면 수업은 그대로 두고 휴강만 얹어요 (휴강을 지우면 수업이 돌아옴)
@@ -744,14 +765,14 @@
     });
     if (ed) $("#calCancel", main).addEventListener("click", () => calendar(main));
     $$("[data-edit]", main).forEach((b) => b.addEventListener("click", () => { calendar(main, Number(b.dataset.edit)); $("#admMain").scrollTop = 0; }));
-    $$("[data-del]", main).forEach((b) => b.addEventListener("click", () => {
+    $$("[data-del]", main).forEach((b) => b.addEventListener("click", async () => {
       const en = entries[Number(b.dataset.del)];
       const d = A.dateLabel(A.parseDate(en.key));
       const msg = en.src === "skip" ? null
         : en.src === "reg" ? `${d} ${en.w.week}주차 수업을 달력에서 지울까요?\n(목록 아래에 '숨김'으로 남아 언제든 되살릴 수 있어요)`
         : en.src === "hol" ? `${d} '${en.h.name}'을(를) 지울까요?${en.off.length ? "\n이 날 쉬던 수업이 다시 달력에 보여요." : ""}`
         : `${d} '${en.src === "evt" ? en.e.title : en.s.short}' 일정을 지울까요?`;
-      if (msg && !confirm(msg)) return;
+      if (msg && !(await ask(msg, "지우기"))) return;
       const cfg = clone(window.SITE_CONFIG);
       calRemove(cfg.curriculum, en);
       ss.set(SS.tab, "calendar");
@@ -777,7 +798,7 @@
   }
   async function deleteSurvey(sv) {
     const n = svResponses(sv.id).length;
-    if (!confirm(`'${sv.title}' 설문을 삭제할까요?${n ? `\n받은 응답 ${n}개도 함께 지워져요.` : ""}`)) return;
+    if (!(await ask(`'${sv.title}' 설문을 삭제할까요?${n ? `\n받은 응답 ${n}개도 함께 지워져요.` : ""}`, "삭제"))) return;
     if (n) { D.surveyResponses = D.surveyResponses.filter((r) => r.surveyId !== sv.id); if (!(await save("surveyResponses"))) return; }
     saveSurveys(((window.SITE_CONFIG.surveys || {}).items || []).filter((x) => x.id !== sv.id), "설문을 삭제했어요");
   }
@@ -898,9 +919,9 @@
       d.questions.splice(i + 1, 0, Object.assign(clone(d.questions[i]), { id: S.uid() }));
       redraw();
     }));
-    $$("[data-qdel]", form).forEach((b) => b.addEventListener("click", () => {
+    $$("[data-qdel]", form).forEach((b) => b.addEventListener("click", async () => {
       const i = Number(b.closest(".sv-q").dataset.i);
-      if (d.questions[i].text && !confirm(`Q${i + 1} 질문을 지울까요?`)) return;
+      if (d.questions[i].text && !(await ask(`Q${i + 1} 질문을 지울까요?`, "지우기"))) return;
       d.questions.splice(i, 1);
       redraw();
     }));
@@ -982,7 +1003,7 @@
     });
     $$("[data-rdel]", main).forEach((b) => b.addEventListener("click", async () => {
       const r = D.surveyResponses.find((x) => x.id === b.dataset.rdel);
-      if (!r || !confirm(`${r.name || "이"} 학생의 응답을 삭제할까요?`)) return;
+      if (!r || !(await ask(`${r.name || "이"} 학생의 응답을 삭제할까요?`, "삭제"))) return;
       D.surveyResponses = D.surveyResponses.filter((x) => x !== r);
       if (await save("surveyResponses")) { toast("응답을 삭제했어요"); survey(main, { action: "result", id: sv.id }); }
     }));
@@ -1032,7 +1053,7 @@
     $("#rsForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const st = Object.fromEntries(new FormData(e.target).entries());
-      if (!ed && D.roster.some((x) => x.sid === st.sid.trim()) && !confirm("같은 학번이 이미 있어요. 새 정보로 바꿀까요?")) return;
+      if (!ed && D.roster.some((x) => x.sid === st.sid.trim()) && !(await ask("같은 학번이 이미 있어요. 새 정보로 바꿀까요?", "바꾸기"))) return;
       upsertStudent(st);
       if (await save("roster")) { toast(ed ? "수정했어요" : `${st.name} 학생을 추가했어요`); roster(main); }
     });
@@ -1054,7 +1075,7 @@
     $$("[data-edit]", main).forEach((b) => b.addEventListener("click", () => roster(main, b.dataset.edit)));
     $$("[data-del]", main).forEach((b) => b.addEventListener("click", async () => {
       const s = D.roster.find((x) => x.sid === b.dataset.del);
-      if (!s || !confirm(`${s.name}(${s.sid}) 학생을 명단에서 삭제할까요?\n출석·과제 기록은 남아 있어요.`)) return;
+      if (!s || !(await ask(`${s.name}(${s.sid}) 학생을 명단에서 삭제할까요?\n출석·과제 기록은 남아 있어요.`, "삭제"))) return;
       D.roster = D.roster.filter((x) => x !== s);
       if (await save("roster")) { toast("삭제했어요"); roster(main); }
     }));
@@ -1102,7 +1123,7 @@
     }));
     $$("[data-del]", main).forEach((b) => b.addEventListener("click", async () => {
       const e = find(b.dataset.del);
-      if (!confirm(`${e.name} 학생의 신청 기록을 삭제할까요?`)) return;
+      if (!(await ask(`${e.name} 학생의 신청 기록을 삭제할까요?`, "삭제"))) return;
       D.enrollments = D.enrollments.filter((x) => x !== e);
       if (await save("enrollments")) { toast("삭제했어요"); apply(main, filter); }
     }));
@@ -1290,7 +1311,7 @@
     });
     const rc = $("#resetCfg");
     if (rc) rc.addEventListener("click", async () => {
-      if (!confirm("화면에서 고친 내용(공지 포함)을 모두 지우고 config.js 파일 내용으로 되돌릴까요?")) return;
+      if (!(await ask("화면에서 고친 내용(공지 포함)을 모두 지우고 config.js 파일 내용으로 되돌릴까요?", "되돌리기"))) return;
       try { await S.resetConfig(auth); ss.set(SS.tab, "settings"); toast("되돌렸어요"); setTimeout(() => location.reload(), 600); }
       catch (ex) { toast("실패: " + ex.message, "err"); }
     });
@@ -1301,7 +1322,7 @@
       try {
         const data = JSON.parse(await file.text());
         if (!data || data.app !== "kuj-site") throw new Error("이 사이트의 백업 파일이 아니에요");
-        if (!confirm(`${new Date(data.savedAt).toLocaleString("ko-KR")} 백업으로 되돌릴까요?\n지금 데이터는 백업 내용으로 바뀝니다.`)) return;
+        if (!(await ask(`${new Date(data.savedAt).toLocaleString("ko-KR")} 백업으로 되돌릴까요?\n지금 데이터는 백업 내용으로 바뀝니다.`, "되돌리기"))) return;
         for (const k of DATA_KEYS) if (k in data.data) { D[k] = data.data[k]; await S.set(k, D[k], auth); }
         toast("복원했어요");
       } catch (ex) { toast("복원하지 못했어요: " + ex.message, "err"); }
