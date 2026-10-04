@@ -176,7 +176,7 @@ window.SITE_CONFIG = {
     eras: [
       {
         key: "jodai", name: "상대", nameJp: "上代", period: "~8세기", icon: "🪷",
-        weeks: [3, 4, 5],
+        weeks: [4, 5],
         summary: "아스카·나라 시대의 불교회화와 고분벽화에서 일본 회화의 출발점을 찾습니다.",
         keywords: ["아스카 시대", "나라 시대", "불교회화", "고분벽화"],
         works: ["호류지 금당벽화", "다카마쓰총 고분벽화", "도리게류조 병풍", "기치조텐 상", "에인가쿄(絵因果経)", "다이마 만다라"]
@@ -254,8 +254,8 @@ window.SITE_CONFIG = {
       { date: "2026-12-25", name: "성탄절" }
     ],
     phases: [
-      { title: "들어가기", jp: "序", weeks: [1, 2], icon: "🌱" },
-      { title: "상대의 그림", jp: "上代 (飛鳥・奈良)", weeks: [3, 4, 5], icon: "🪷" },
+      { title: "들어가기", jp: "序", weeks: [1, 2, 3], icon: "🌱" },
+      { title: "상대의 그림", jp: "上代 (飛鳥・奈良)", weeks: [4, 5], icon: "🪷" },
       { title: "헤이안의 그림", jp: "平安 (密教・絵巻)", weeks: [6, 7], icon: "🌸" },
       { title: "중간 점검", jp: "中間", weeks: [8], icon: "📝" },
       { title: "중세의 그림", jp: "中世 (鎌倉・室町)", weeks: [9, 10], icon: "🏯" },
@@ -267,16 +267,16 @@ window.SITE_CONFIG = {
     weeks: [
       { week: 1, short: "강의 소개", topic: "강의 소개 및 일본문화에 대한 전반적 소개", material: "PPT, 프린트", activity: "강의 및 토론",
         details: "16주 수업의 흐름과 평가 방법을 안내하고, 일본문화 전반을 개관합니다." },
-      { week: 2, short: "시대적 흐름", topic: "일본회화와 시대적 흐름", material: "PPT, 프린트", activity: "강의 및 토론",
-        details: "상대에서 근현대까지 일본 회화사의 큰 흐름을 시대 구분과 함께 살펴봅니다.",
+      { week: 2, short: "시대적 흐름 (1)", topic: "일본회화의 시대적 흐름 (1)", material: "PPT, 프린트", activity: "강의 및 토론",
+        details: "상대-근현대까지 시대와 연관하여 회화사의 큰 흐름을 살펴본다.",
         images: [
           { title: "다카마쓰총 고분벽화 (아스카)", file: "Takamat1.jpg", wiki: "高松塚古墳" },
           { title: "겐지모노가타리에마키 (헤이안)", file: "Genji emaki azumaya.jpg", wiki: "源氏物語絵巻" },
           { title: "셋슈 「추동산수도」 (무로마치)", file: "Autumn and Winter Landscape.jpg", wiki: "秋冬山水図" },
           { title: "호쿠사이 「가나가와 해변의 높은 파도」 (에도)", file: "The Great Wave off Kanagawa.jpg", wiki: "神奈川沖浪裏" }
         ] },
-      { week: 3, short: "상대 개관", topic: "일본회화 작품감상 및 시대배경 1) 상대(上代) 개관", era: "jodai", material: "PPT, 프린트", activity: "강의 및 토론",
-        details: "4·5주차 아스카·나라 시대 회화를 보기 전에, 불교 전래와 대륙·한반도 문화의 유입 등 상대(上代) 회화의 시대 배경을 살펴본다.",   // [예시] 4·5주차와 겹치지 않게 정리한 내용
+      { week: 3, short: "시대적 흐름 (2)", topic: "일본회화의 시대적 흐름 (2)", material: "PPT, 프린트", activity: "강의 및 토론",
+        details: "상대-근현대까지 시대와 연관하여 회화사의 큰 흐름을 살펴본다.",
         images: [
           { title: "다마무시노즈시(玉虫厨子) · 호류지", file: "Tamamushi Shrine ColorPhoto.jpg", wiki: "玉虫厨子" },
           { title: "덴주코쿠 수장(天寿国繡帳) · 주구지", file: "Tenjyukoku embroidery.jpg", wiki: "天寿国繡帳" }
@@ -369,7 +369,7 @@ window.SITE_CONFIG = {
           { title: "다와라야 소타쓰 「풍신뇌신도 병풍」", file: "Wind God and Thunder God Screens by Tawaraya Sotatsu low-res.png", wiki: "風神雷神図" }
         ] },
       { week: 15, short: "종합 정리 (2)", topic: "일본회화의 이해와 시대와의 상관성 (2)", material: "PPT, 프린트", activity: "강의 및 토론",
-        details: "시대별 회화의 특징을 비교하며 일본 문화의 흐름 속에서 회화가 가진 의미를 종합적으로 정리합니다.",   // [예시]
+        details: "시대별 회화의 특징을 정리하고 일본문화의 흐름 속에서 회화가 가진 의미를 생각해본다.",
         images: [
           { title: "오가타 고린 「홍백매도 병풍」", file: "Ogata Kōrin - Red and White Plum Blossoms.jpg", wiki: "紅白梅図" }
         ] },
